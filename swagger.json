@@ -1,0 +1,22 @@
+{
+	"openapi": "3.0.2",
+	"info": {
+		"version": "0.0.1",
+		"description": "backend rest api for SICAPIN apps"
+	},
+	"servers": [{ "url": "http://localhost:1945/api/v1", "description": "local development" }],
+	"paths": {
+		"/auth/register": {
+			"post": {
+				"tags": ["Authentication"],
+				"responses": {}
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"tags": ["Authentication"],
+				"responses": {}
+			}
+		}
+	}
+}
