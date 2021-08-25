@@ -7,7 +7,7 @@
 	},
 	"servers": [
 		{ "url": "http://localhost:1945/api/v1", "description": "local development" },
-		{ "url": "https://sicapin-backend-rest-api.herokuapp.com", "description": "production" }
+		{ "url": "https://sicapin-backend-rest-api.herokuapp.com/api/v1", "description": "production" }
 	],
 	"paths": {
 		"/auth/register": {
