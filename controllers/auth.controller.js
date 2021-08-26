@@ -13,19 +13,17 @@ const signupSchema = Joi.object({
 	email: Joi.string().email().required(),
 	password: Joi.string().required(),
 }).options({ abortEarly: false });
+
 const signinSchema = Joi.object({
 	full_name: Joi.string().required(),
 	password: Joi.string().required(),
 }).options({ abortEarly: false });
 
 const formatErrorValidation = ({ details }) => {
-	const errors = details.map((error) => {
-		return {
-			message: error.message,
-			field: error.context.label,
-		};
-	});
-	return errors;
+	return details.map((error) => ({
+		message: error.message,
+		field: error.context.label,
+	}));
 };
 
 module.exports.signupUser = async (req, res) => {
@@ -51,6 +49,7 @@ module.exports.signupUser = async (req, res) => {
 				full_name: true,
 				user_class: true,
 				email: true,
+				password: true,
 			},
 		});
 
@@ -80,12 +79,15 @@ module.exports.signinUser = async (req, res) => {
 			},
 		});
 
-		const checkPassword = await bcrypt.compare(password, user.password);
-
-		if (!user || !checkPassword) {
-			return res.status(400).json(responseSend('invalid user login', null, 'wrong name or password'));
+		if (!user) {
+			return res.status(404).json(responseSend('invalid user login', null, 'wrong name or password'));
+		} else {
+			const checkPassword = await bcrypt.compare(password, user.password);
+			if (!checkPassword) {
+				return res.status(404).json(responseSend('invalid user login', null, 'wrong name or password'));
+			}
+			return res.status(200).json(responseSend('success', user, null));
 		}
-		return res.status(200).json(responseSend('success', user, null));
 	} catch (err) {
 		return res.json(err.message);
 	}
