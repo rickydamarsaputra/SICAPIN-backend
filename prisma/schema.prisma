@@ -12,11 +12,52 @@ generator client {
 }
 
 model User {
-  id         String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   full_name  String
   user_class String
   email      String
+  point      Int      @default(0)
+  username   String   @unique
   password   String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  @@map("user")
+}
+
+model Category {
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  title      String
+  icon       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  sub_category SubCategory[]
+  @@map("category")
+}
+
+model SubCategory {
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  title      String
+  icon       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  category    Category  @relation(fields: [category_id], references: [id])
+  category_id String    @db.ObjectId
+  article     Article[]
+  @@map("sub_category")
+}
+
+model Article {
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  title      String
+  thumbnail  String
+  body       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  sub_category    SubCategory @relation(fields: [sub_category_id], references: [id])
+  sub_category_id String      @db.ObjectId
+  @@map("article")
 }
