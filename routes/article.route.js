@@ -1,15 +1,20 @@
 const router = require('express').Router();
-const CategoryController = require('../controllers/category.controller');
+const ArticleController = require('../controllers/article.controller');
 
 /**
  * @swagger
- * /category:
+ * /article:
  *  get:
- *    summary: get all category
- *    tags: [Category]
+ *    summary: get all article
+ *    tags: [Article]
+ *    parameters:
+ *      - in: query
+ *        name: categoryId
+ *        schema:
+ *          type: string
  *    responses:
  *       200:
- *         description: success get all category
+ *         description: success get all article
  *         content:
  *           application/json:
  *             schema:
@@ -25,32 +30,47 @@ const CategoryController = require('../controllers/category.controller');
  *                 status: success
  *                 data:
  *                   -
- *                     id: 612a411800c0263900081d96
- *                     title: matematika
- *                     icon: https://ik.imagekit.io/rickydamarsaputra/matematika_Jx0zUCn8a.png
+ *                     id: 612c79ee00107df3003b8fa3
+ *                     title: berkenalan dengan biologi
  *                   -
  *                     id: 612a41a000c0263900081d97
- *                     title: ilmu sosial
- *                     icon: https://ik.imagekit.io/rickydamarsaputra/ilmu_sosial_-mLIlM-JD.png
+ *                     title: rantai makanan
  *                 errors: null
+ *       404:
+ *         description: failed get article
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                status:
+ *                  type: string
+ *                data:
+ *                  type: array
+ *                errors:
+ *                  type: string
+ *               example:
+ *                 status: failed get article
+ *                 data: null
+ *                 errors: the category was not found
  */
-router.get('/', CategoryController.getAllCategory);
+router.get('/', ArticleController.getAllArticle);
 
 /**
  * @swagger
- * /category/{categoryId}:
+ * /article/{articleId}:
  *  get:
- *    summary: get single category
- *    tags: [Category]
+ *    summary: get single article
+ *    tags: [Article]
  *    parameters:
  *      - in: path
- *        name: categoryId
+ *        name: articleId
  *        schema:
  *          type: string
  *        required: true
  *    responses:
  *       200:
- *         description: success get category
+ *         description: success get article
  *         content:
  *           application/json:
  *             schema:
@@ -66,11 +86,12 @@ router.get('/', CategoryController.getAllCategory);
  *                 status: success
  *                 data:
  *                   id: 612a411800c0263900081d96
- *                   title: matematika
- *                   icon: https://ik.imagekit.io/rickydamarsaputra/matematika_Jx0zUCn8a.png
+ *                   title: berkenalan dengan biologi
+ *                   thumbnail: https://ik.imagekit.io/rickydamarsaputra/matematika_Jx0zUCn8a.png
+ *                   body: <p>Biologi atau ilmu hayat adalah kajian tentang kehidupan, dan organisme hidup, termasuk struktur, fungsi, pertumbuhan, evolusi, persebaran, dan taksonominya.</p>
  *                 errors: null
  *       404:
- *         description: failed get category
+ *         description: failed get article
  *         content:
  *           application/json:
  *             schema:
@@ -83,18 +104,18 @@ router.get('/', CategoryController.getAllCategory);
  *                errors:
  *                  type: string
  *               example:
- *                 status: failed get category
+ *                 status: failed get article
  *                 data: null
- *                 errors: category not found
+ *                 errors: article not found
  */
-router.get('/:categoryId', CategoryController.getSingleCategory);
+router.get('/:articleId', ArticleController.getSingleArticle);
 
 /**
  * @swagger
- * /category:
+ * /article:
  *  post:
- *    summary: create new category
- *    tags: [Category]
+ *    summary: create new article
+ *    tags: [Article]
  *    requestBody:
  *      required: true
  *      content:
@@ -104,12 +125,16 @@ router.get('/:categoryId', CategoryController.getSingleCategory);
  *            properties:
  *              title:
  *                type: string
- *              icon:
+ *              body:
+ *                type: string
+ *              category_id:
+ *                type: string
+ *              thumbnail:
  *                type: string
  *                format: binary
  *    responses:
  *       201:
- *         description: success create category
+ *         description: success create article
  *         content:
  *           application/json:
  *             schema:
@@ -124,11 +149,11 @@ router.get('/:categoryId', CategoryController.getSingleCategory);
  *               example:
  *                 status: success
  *                 data:
- *                   title: matematika
- *                   icon: https://ik.imagekit.io/rickydamarsaputra/matematika_Jx0zUCn8a.png
+ *                   title: berkenalan dengan biologi
+ *                   thumbnail: https://ik.imagekit.io/rickydamarsaputra/matematika_Jx0zUCn8a.png
  *                 errors: null
  *       400:
- *         description: failed created category, when send data is not valid
+ *         description: failed created article, when send data is not valid
  *         content:
  *           application/json:
  *             schema:
@@ -148,7 +173,7 @@ router.get('/:categoryId', CategoryController.getSingleCategory);
  *                     message: \"title\" is required
  *                     field: title
  *       415:
- *         description: failed created category, when file icon type not valid (png | jpg | jpeg)
+ *         description: failed created article, when file thumbnail type not valid (png | jpg | jpeg)
  *         content:
  *           application/json:
  *             schema:
@@ -163,9 +188,9 @@ router.get('/:categoryId', CategoryController.getSingleCategory);
  *               example:
  *                 status: data send not valid
  *                 data: null
- *                 errors: file icon type is not valid
+ *                 errors: file thumbnail type is not valid
  *       422:
- *         description: failed created category, when file icon not send
+ *         description: failed created article, when file thumbnail not send
  *         content:
  *           application/json:
  *             schema:
@@ -180,19 +205,19 @@ router.get('/:categoryId', CategoryController.getSingleCategory);
  *               example:
  *                 status: data send not valid
  *                 data: null
- *                 errors: file icon not send
+ *                 errors: file thumbnail not send
  */
-router.post('/', CategoryController.createCategory);
+router.post('/', ArticleController.createArticle);
 
 /**
  * @swagger
- * /category/{categoryId}:
+ * /article/{articleId}:
  *  put:
- *    summary: update category
- *    tags: [Category]
+ *    summary: update article
+ *    tags: [Article]
  *    parameters:
  *      - in: path
- *        name: categoryId
+ *        name: articleId
  *        schema:
  *          type: string
  *        required: true
@@ -205,12 +230,16 @@ router.post('/', CategoryController.createCategory);
  *            properties:
  *              title:
  *                type: string
- *              icon:
+ *              body:
+ *                type: string
+ *              category_id:
+ *                type: string
+ *              thumbnail:
  *                type: string
  *                format: binary
  *    responses:
  *       200:
- *         description: success update category
+ *         description: success update article
  *         content:
  *           application/json:
  *             schema:
@@ -225,8 +254,8 @@ router.post('/', CategoryController.createCategory);
  *               example:
  *                 status: success
  *                 data:
- *                   title: matematika
- *                   icon: https://ik.imagekit.io/rickydamarsaputra/matematika_Jx0zUCn8a.png
+ *                   title: berkenalan dengan biologi
+ *                   thumbnail: https://ik.imagekit.io/rickydamarsaputra/matematika_Jx0zUCn8a.png
  *                 errors: null
  *       400:
  *         description: failed update category, when send data is not valid
@@ -249,7 +278,7 @@ router.post('/', CategoryController.createCategory);
  *                     message: \"title\" is required
  *                     field: title
  *       415:
- *         description: failed update category, when file icon type not valid (png | jpg | jpeg)
+ *         description: failed update article, when file thumbnail type not valid (png | jpg | jpeg)
  *         content:
  *           application/json:
  *             schema:
@@ -264,9 +293,9 @@ router.post('/', CategoryController.createCategory);
  *               example:
  *                 status: data send not valid
  *                 data: null
- *                 errors: file icon type is not valid
+ *                 errors: file thumbnail type is not valid
  *       422:
- *         description: failed update category, when file icon not send
+ *         description: failed update article, when file thumbnail not send
  *         content:
  *           application/json:
  *             schema:
@@ -281,9 +310,9 @@ router.post('/', CategoryController.createCategory);
  *               example:
  *                 status: data send not valid
  *                 data: null
- *                 errors: file icon not send
+ *                 errors: file thumbnail not send
  *       404:
- *         description: failed updated category
+ *         description: failed updated article
  *         content:
  *           application/json:
  *             schema:
@@ -296,21 +325,21 @@ router.post('/', CategoryController.createCategory);
  *                errors:
  *                  type: string
  *               example:
- *                 status: failed delete category
+ *                 status: failed delete article
  *                 data: null
- *                 errors: category not found
+ *                 errors: article not found
  */
-router.put('/:categoryId', CategoryController.updateCategory);
+router.put('/:articleId', ArticleController.updateArticle);
 
 /**
  * @swagger
- * /category/{categoryId}:
+ * /article/{articleId}:
  *  delete:
- *    summary: delete category
- *    tags: [Category]
+ *    summary: delete article
+ *    tags: [Article]
  *    parameters:
  *      - in: path
- *        name: categoryId
+ *        name: articleId
  *        schema:
  *          type: string
  *        required: true
@@ -332,11 +361,11 @@ router.put('/:categoryId', CategoryController.updateCategory);
  *                 status: success
  *                 data:
  *                   id: 612a411800c0263900081d96
- *                   title: matematika
- *                   icon: https://ik.imagekit.io/rickydamarsaputra/matematika_Jx0zUCn8a.png
+ *                   title: berkenalan dengan biologi
+ *                   thumbnail: https://ik.imagekit.io/rickydamarsaputra/matematika_Jx0zUCn8a.png
  *                 errors: null
  *       404:
- *         description: failed delete category
+ *         description: failed delete article
  *         content:
  *           application/json:
  *             schema:
@@ -349,10 +378,10 @@ router.put('/:categoryId', CategoryController.updateCategory);
  *                errors:
  *                  type: string
  *               example:
- *                 status: failed delete category
+ *                 status: failed delete article
  *                 data: null
- *                 errors: category not found
+ *                 errors: article not found
  */
-router.delete('/:categoryId', CategoryController.deleteCategory);
+router.delete('/:articleId', ArticleController.deleteArticle);
 
 module.exports = router;
