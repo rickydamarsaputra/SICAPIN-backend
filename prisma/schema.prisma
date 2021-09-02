@@ -32,7 +32,8 @@ model Category {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  articles Article[]
+  article Article[]
+  quiz    Quiz[]
   @@map("category")
 }
 
@@ -40,11 +41,24 @@ model Article {
   id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   title      String
   thumbnail  String
-  body       String
+  body       String[] @db.Array(String)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   category    Category @relation(fields: [category_id], references: [id])
   category_id String   @db.ObjectId
   @@map("article")
+}
+
+model Quiz {
+  id             String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  question       String
+  correct_answer String
+  answers        String[] @db.Array(String)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  category    Category @relation(fields: [category_id], references: [id])
+  category_id String   @db.ObjectId
+  @@map("quiz")
 }

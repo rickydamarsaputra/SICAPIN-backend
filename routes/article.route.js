@@ -345,7 +345,7 @@ router.put('/:articleId', ArticleController.updateArticle);
  *        required: true
  *    responses:
  *       200:
- *         description: success delete category
+ *         description: success delete article
  *         content:
  *           application/json:
  *             schema:

@@ -85,7 +85,7 @@ module.exports.createArticle = async (req, res) => {
 			data: {
 				title: title.toLowerCase(),
 				thumbnail: imageUpload.url,
-				body,
+				body: JSON.parse(body),
 				category: {
 					connect: {
 						id: category_id,
