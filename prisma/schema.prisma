@@ -19,8 +19,8 @@ model User {
   point      Int      @default(0)
   username   String   @unique
   password   String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
 
   @@map("user")
 }
@@ -29,8 +29,8 @@ model Category {
   id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   title      String
   icon       String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
 
   article Article[]
   quiz    Quiz[]
@@ -42,8 +42,8 @@ model Article {
   title      String
   thumbnail  String
   body       String[] @db.Array(String)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
 
   category    Category @relation(fields: [category_id], references: [id])
   category_id String   @db.ObjectId
@@ -55,8 +55,8 @@ model Quiz {
   question       String
   correct_answer String
   answers        String[] @db.Array(String)
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
+  created_at     DateTime? @default(now())
+  updated_at     DateTime? @updatedAt
 
   category    Category @relation(fields: [category_id], references: [id])
   category_id String   @db.ObjectId

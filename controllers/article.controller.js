@@ -19,6 +19,7 @@ module.exports.getAllArticle = async (req, res) => {
 			select: {
 				id: true,
 				title: true,
+				thumbnail: true,
 			},
 		});
 
