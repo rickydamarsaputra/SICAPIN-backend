@@ -1,2 +1,2 @@
-# SICAPIN-backend
-backend api for SICAPIN app
+# ZUPERIOR-backend
+backend api for ZUPERIOR app

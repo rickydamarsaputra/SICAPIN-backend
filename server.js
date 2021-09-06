@@ -24,13 +24,13 @@ const options = {
 	definition: {
 		openapi: '3.0.0',
 		info: {
-			title: 'SICAPIN Backend Rest Api',
+			title: 'ZUPERIOR Backend Rest Api',
 			version: '1.0.0',
-			description: 'backend rest api for SICAPIN apps',
+			description: 'backend rest api for ZUPERIOR apps',
 		},
 		servers: [
 			{ url: 'http://localhost:1945/api/v1', description: 'local development' },
-			{ url: 'https://sicapin-backend-rest-api.herokuapp.com/api/v1', description: 'production' },
+			{ url: 'https://zuperior-backend-rest-api.herokuapp.com/api/v1', description: 'production' },
 		],
 	},
 	apis: ['./routes/*.js'],

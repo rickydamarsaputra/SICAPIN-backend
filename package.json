@@ -1,7 +1,7 @@
 {
-	"name": "sicapin-backend",
+	"name": "zuperior-backend",
 	"version": "1.0.0",
-	"description": "backend api for SICAPIN app",
+	"description": "backend api for ZUPERIOR app",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js",
@@ -10,15 +10,15 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/rickydamarsaputra/SICAPIN-backend.git"
+		"url": "git+https://github.com/rickydamarsaputra/ZUPERIOR-backend.git"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/rickydamarsaputra/SICAPIN-backend/issues"
+		"url": "https://github.com/rickydamarsaputra/ZUPERIOR-backend/issues"
 	},
-	"homepage": "https://github.com/rickydamarsaputra/SICAPIN-backend#readme",
+	"homepage": "https://github.com/rickydamarsaputra/ZUPERIOR-backend#readme",
 	"dependencies": {
 		"@prisma/client": "^2.30.2",
 		"bcrypt": "^5.0.1",
