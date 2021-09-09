@@ -29,6 +29,7 @@ module.exports.signupUser = async (req, res) => {
 				password: hashPassword,
 			},
 			select: {
+				id: true,
 				username: true,
 				password: true,
 			},
@@ -53,6 +54,7 @@ module.exports.signinUser = async (req, res) => {
 				username,
 			},
 			select: {
+				id: true,
 				username: true,
 				password: true,
 			},

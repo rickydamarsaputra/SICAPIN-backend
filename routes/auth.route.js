@@ -53,6 +53,7 @@ const AuthController = require('../controllers/auth.controller');
  *               example:
  *                 status: success
  *                 data:
+ *                   id: 6139810e00ba1546003b5cbd
  *                   username: johndoe
  *                   password: $2b$10$4uMmodoV5AFT8.IFZ48Y/uFuUoId2SWrniVmm2LMqweRJtiSyoh6y
  *                 errors: null
@@ -119,6 +120,7 @@ router.post('/register', AuthController.signupUser);
  *               example:
  *                 status: success
  *                 data:
+ *                   id: 6139810e00ba1546003b5cbd
  *                   username: johndoe
  *                   password: $2b$10$4uMmodoV5AFT8.IFZ48Y/uFuUoId2SWrniVmm2LMqweRJtiSyoh6y
  *                 errors: null

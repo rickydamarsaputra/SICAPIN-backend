@@ -12,12 +12,12 @@ generator client {
 }
 
 model User {
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
   full_name  String
   user_class String
   email      String
-  point      Int      @default(0)
-  username   String   @unique
+  point      Int       @default(0)
+  username   String    @unique
   password   String
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
@@ -26,7 +26,7 @@ model User {
 }
 
 model Category {
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
   title      String
   icon       String
   created_at DateTime? @default(now())
@@ -38,10 +38,10 @@ model Category {
 }
 
 model Article {
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
   title      String
   thumbnail  String
-  body       String[] @db.Array(String)
+  body       String[]  @db.Array(String)
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
 
@@ -51,10 +51,10 @@ model Article {
 }
 
 model Quiz {
-  id             String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id             String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
   question       String
   correct_answer String
-  answers        String[] @db.Array(String)
+  answers        String[]  @db.Array(String)
   created_at     DateTime? @default(now())
   updated_at     DateTime? @updatedAt
 
