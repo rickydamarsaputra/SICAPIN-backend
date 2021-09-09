@@ -1,25 +1,15 @@
 const router = require('express').Router();
-const QuizController = require('../controllers/quiz.controller');
+const AssetController = require('../controllers/asset.controller');
 
 /**
  * @swagger
- * /quiz:
+ * /asset:
  *  get:
- *    summary: get all quiz
- *    tags: [Quiz]
- *    parameters:
- *      - in: query
- *        name: limit
- *        schema:
- *          type: integer
- *        description: if you do not fill in the limit then by default it will contain 10
- *      - in: query
- *        name: categoryId
- *        schema:
- *          type: string
+ *    summary: get all asset
+ *    tags: [Asset 3D]
  *    responses:
  *       200:
- *         description: success get all quiz
+ *         description: success get all asset
  *         content:
  *           application/json:
  *             schema:
@@ -36,47 +26,27 @@ const QuizController = require('../controllers/quiz.controller');
  *                 data:
  *                   -
  *                     id: 612a411800c0263900081d96
- *                     question: html is programming language ?
- *                     correct_answer: no
- *                     answers:
- *                       - yes
- *                       - no
+ *                     title: html is programming language ?
+ *                     icon: https://ik.imagekit.io/rickydamarsaputra/ilmu_sosial_-mLIlM-JD.png
  *                 errors: null
- *       404:
- *         description: failed get quiz
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                status:
- *                  type: string
- *                data:
- *                  type: array
- *                errors:
- *                  type: string
- *               example:
- *                 status: failed get quiz
- *                 data: null
- *                 errors: the category was not found
  */
-router.get('/', QuizController.getAllQuiz);
+router.get('/', AssetController.getAllAsset);
 
 /**
  * @swagger
- * /quiz/{quizId}:
+ * /asset/{assetId}:
  *  get:
- *    summary: get single quiz
- *    tags: [Quiz]
+ *    summary: get single asset
+ *    tags: [Asset 3D]
  *    parameters:
  *      - in: path
- *        name: quizId
+ *        name: assetId
  *        schema:
  *          type: string
  *        required: true
  *    responses:
  *       200:
- *         description: success get quiz
+ *         description: success get asset
  *         content:
  *           application/json:
  *             schema:
@@ -92,14 +62,12 @@ router.get('/', QuizController.getAllQuiz);
  *                 status: success
  *                 data:
  *                   id: 612a411800c0263900081d96
- *                   question: html is programming language ?
- *                   correct_answer: no
- *                   answers:
- *                     - yes
- *                     - no
+ *                   title: html is programming language ?
+ *                   icon: https://ik.imagekit.io/rickydamarsaputra/ilmu_sosial_-mLIlM-JD.png
+ *                   asset_url: https://ik.imagekit.io/rickydamarsaputra/ilmu_sosial_-mLIlM-JD.png
  *                 errors: null
  *       404:
- *         description: failed get quiz
+ *         description: failed get asset
  *         content:
  *           application/json:
  *             schema:
@@ -112,48 +80,37 @@ router.get('/', QuizController.getAllQuiz);
  *                errors:
  *                  type: string
  *               example:
- *                 status: failed get quiz
+ *                 status: failed get asset
  *                 data: null
- *                 errors: quiz not found
+ *                 errors: asset not found
  */
-router.get('/:quizId', QuizController.getSingleQuiz);
+router.get('/:assetId', AssetController.getSingleAsset);
 
 /**
  * @swagger
- * /quiz:
- *   post:
- *     summary: create new quiz
- *     tags: [Quiz]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - question
- *               - correct_answer
- *               - answers
- *               - category_id
- *             properties:
- *               question:
- *                 type: string
- *               correct_answer:
- *                 type: string
- *               answers:
- *                 type: array
- *               category_id:
- *                 type: string
- *             example:
- *               question: html is programming language ?
- *               correct_answer: no
- *               answers:
- *                 - yes
- *                 - no
- *               category_id: 612ebec200016a6600229e66
- *     responses:
+ * /asset:
+ *  post:
+ *    summary: create new asset
+ *    tags: [Asset 3D]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        multipart/form-data:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *              icon:
+ *                type: string
+ *                format: binary
+ *              asset_url:
+ *                type: string
+ *              category_id:
+ *                type: string
+ *    responses:
  *       201:
- *         description: success create quiz
+ *         description: success create asset
  *         content:
  *           application/json:
  *             schema:
@@ -168,10 +125,11 @@ router.get('/:quizId', QuizController.getSingleQuiz);
  *               example:
  *                 status: success
  *                 data:
- *                   question: html is programming language ?
+ *                   title: matematika
+ *                   icon: https://ik.imagekit.io/rickydamarsaputra/matematika_Jx0zUCn8a.png
  *                 errors: null
  *       400:
- *         description: failed created quiz, when send data is not valid
+ *         description: failed created asset, when send data is not valid
  *         content:
  *           application/json:
  *             schema:
@@ -188,17 +146,51 @@ router.get('/:quizId', QuizController.getSingleQuiz);
  *                 data: null
  *                 errors:
  *                   -
- *                     message: \"question\" is required
- *                     field: question
+ *                     message: \"title\" is required
+ *                     field: title
+ *       415:
+ *         description: failed created asset, when file icon type not valid (png | jpg | jpeg)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                status:
+ *                  type: string
+ *                data:
+ *                  type: string
+ *                errors:
+ *                  type: string
+ *               example:
+ *                 status: data send not valid
+ *                 data: null
+ *                 errors: file icon type is not valid
+ *       422:
+ *         description: failed created asset, when file icon not send
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                status:
+ *                  type: string
+ *                data:
+ *                  type: string
+ *                errors:
+ *                  type: string
+ *               example:
+ *                 status: data send not valid
+ *                 data: null
+ *                 errors: file icon not send
  */
-router.post('/', QuizController.createQuiz);
+router.post('/', AssetController.createAsset);
 
 /**
  * @swagger
- * /quiz/{quizId}:
+ * /asset/{assetId}:
  *   put:
- *     summary: update quiz
- *     tags: [Quiz]
+ *     summary: update asset
+ *     tags: [Asset 3D]
  *     parameters:
  *       - in: path
  *         name: quizId
@@ -272,14 +264,14 @@ router.post('/', QuizController.createQuiz);
  *                     message: \"question\" is required
  *                     field: question
  */
-router.put('/:quizId', QuizController.updateQuiz);
+router.put('/:assetId', AssetController.updateAsset);
 
 /**
  * @swagger
- * /quiz/{quizId}:
+ * /asset/{assetId}:
  *  delete:
- *    summary: delete quiz
- *    tags: [Quiz]
+ *    summary: delete asset
+ *    tags: [Asset 3D]
  *    parameters:
  *      - in: path
  *        name: quizId
@@ -324,6 +316,6 @@ router.put('/:quizId', QuizController.updateQuiz);
  *                 data: null
  *                 errors: quiz not found
  */
-router.delete('/:quizId', QuizController.deleteQuiz);
+router.delete('/:assetId', AssetController.deleteAsset);
 
 module.exports = router;

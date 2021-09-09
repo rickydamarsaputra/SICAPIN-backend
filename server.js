@@ -19,6 +19,7 @@ const authRouter = require('./routes/auth.route');
 const categoryRouter = require('./routes/category.route');
 const articleRouter = require('./routes/article.route');
 const quizRouter = require('./routes/quiz.route');
+const assetRouter = require('./routes/asset.route');
 
 const options = {
 	definition: {
@@ -40,10 +41,12 @@ const specs = swaggerJsDoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/api/v1/category', upload.single('icon'));
 app.use('/api/v1/article', upload.single('thumbnail'));
+app.use('/api/v1/asset', upload.single('icon'));
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/category', categoryRouter);
 app.use('/api/v1/article', articleRouter);
 app.use('/api/v1/quiz', quizRouter);
+app.use('/api/v1/asset', assetRouter);
 
 app.listen(port, () => console.log(`sicapin server run on port ${port}`));

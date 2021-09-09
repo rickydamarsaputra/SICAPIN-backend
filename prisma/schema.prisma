@@ -34,6 +34,7 @@ model Category {
 
   article Article[]
   quiz    Quiz[]
+  asset   Asset[]
   @@map("category")
 }
 
@@ -61,4 +62,17 @@ model Quiz {
   category    Category @relation(fields: [category_id], references: [id])
   category_id String   @db.ObjectId
   @@map("quiz")
+}
+
+model Asset {
+  id         String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  title      String
+  icon       String
+  asset_url  String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+
+  category    Category @relation(fields: [category_id], references: [id])
+  category_id String   @db.ObjectId
+  @@map("asset")
 }
