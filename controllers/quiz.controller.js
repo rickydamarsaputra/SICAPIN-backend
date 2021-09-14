@@ -28,7 +28,17 @@ module.exports.getAllQuiz = async (req, res) => {
 			},
 		});
 
-		return res.status(200).json(responseSend('success', quiz, null));
+		const formatQuiz = quiz.map((qui) => {
+			return {
+				id: qui.id,
+				question: qui.question,
+				correct_answer: qui.correct_answer,
+				answers: qui.answers,
+				mapel: qui.category.title,
+			};
+		});
+
+		return res.status(200).json(responseSend('success', formatQuiz, null));
 	} catch (err) {
 		return res.status(404).json(responseSend('failed get article', null, 'the category was not found'));
 	}

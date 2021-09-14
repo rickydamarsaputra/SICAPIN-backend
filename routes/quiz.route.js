@@ -41,6 +41,7 @@ const QuizController = require('../controllers/quiz.controller');
  *                     answers:
  *                       - yes
  *                       - no
+ *                     mapel: programming
  *                 errors: null
  *       404:
  *         description: failed get quiz

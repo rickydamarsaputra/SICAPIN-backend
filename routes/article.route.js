@@ -32,9 +32,13 @@ const ArticleController = require('../controllers/article.controller');
  *                   -
  *                     id: 612c79ee00107df3003b8fa3
  *                     title: berkenalan dengan biologi
- *                   -
- *                     id: 612a41a000c0263900081d97
- *                     title: rantai makanan
+ *                     mapel: ilmu biologi
+ *                     content:
+ *                       - <h1>hello world<h1/><p> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+ *                       - <h1>hello world<h1/><p> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+ *                       - <h1>hello world<h1/><p> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+ *                     created_at: 2021-08-31T23:52:20.832Z
+ *                     updated_at: 2021-08-31T23:52:20.832Z
  *                 errors: null
  *       404:
  *         description: failed get article

@@ -17,13 +17,32 @@ module.exports.getAllArticle = async (req, res) => {
 				category_id: categoryId,
 			},
 			select: {
+				// thumbnail: true,
 				id: true,
 				title: true,
-				thumbnail: true,
+				body: true,
+				category: {
+					select: {
+						title: true,
+					},
+				},
+				created_at: true,
+				updated_at: true,
 			},
 		});
 
-		return res.status(200).json(responseSend('success', articles, null));
+		const formatArticles = articles.map((article) => {
+			return {
+				id: article.id,
+				title: article.title,
+				mapel: article.category.title,
+				content: article.body,
+				created_at: article.created_at,
+				updated_at: article.updated_at,
+			};
+		});
+
+		return res.status(200).json(responseSend('success', formatArticles, null));
 	} catch (err) {
 		return res.status(404).json(responseSend('failed get article', null, 'the category was not found'));
 	}
